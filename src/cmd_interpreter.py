@@ -51,7 +51,7 @@ class Motor():
 
 
 
-class Kayak_command():
+class Buggy_command():
 
 
     def __init__(self):
@@ -133,7 +133,7 @@ class Kayak_command():
  
 
 if __name__ == '__main__':
-    rospy.init_node('cmd_meplakayak')
+    rospy.init_node('cmd_buggy')
     r = rospy.Rate(50)
     kayak = Kayak_command()
     rospy.spin()
