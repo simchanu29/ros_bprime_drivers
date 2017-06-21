@@ -1,0 +1,8 @@
+<launch>
+	<node name="motorBoard_driver" pkg="ros_bprime_drivers" type="adafruit_hat_driver.py" output="screen" ></node>
+	<node name="cam_monitor" pkg="ros_bprime_drivers" type="camera_monitor.py" output="screen" ></node>
+	
+	<group ns="teleop">
+		<include file="$(find ros_teleop)/launch/teleop.launch"/>
+    </group>
+</launch>
