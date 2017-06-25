@@ -1,6 +1,6 @@
 <launch>
 
-	<node name="motorBoard_driver" pkg="ros_bprime_drivers" type="adafruit_hat_driver.py" ></node>
+	<!--<node name="motorBoard_driver" pkg="ros_bprime_drivers" type="adafruit_hat_driver.py" ></node>-->
 
 	<node name="cam_monitor" pkg="ros_bprime_drivers" type="video_monitor.py" ></node>
 
