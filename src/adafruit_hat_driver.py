@@ -58,6 +58,6 @@ if __name__ == '__main__':
     rospy.Subscriber('cmd_position_servo2', Float32, motor.cb_servo2)
 
     rospy.Subscriber('gauche/cmd_thr', Int16, motor.cb_motor_gauche)
-    rospy.Subscriber('droite/cmd_tghr', Int16, motor.cb_motor_droit)
+    rospy.Subscriber('droite/cmd_thr', Int16, motor.cb_motor_droit)
 
     rospy.spin()
