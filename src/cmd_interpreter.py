@@ -52,7 +52,7 @@ class Buggy_command():
 
     def __init__(self):
 
-        self.subWrench = rospy.Subscriber('cmd_twist', Wrench, self.updateWrench)
+        self.subWrench = rospy.Subscriber('cmd_wrench', Wrench, self.updateWrench)
 
         self.motorG = Motor('gauche',y=0.1)
         self.motorD = Motor('droite',y=-0.1)
