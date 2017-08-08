@@ -20,7 +20,7 @@
 
 	<!--<node name="motorBoard_driver" pkg="ros_bprime_drivers" type="adafruit_hat_driver.py" ></node>-->
 
-	<!--<node name="cmd_interpreter" pkg="ros_bprime_drivers" type="cmd_interpreter.py" output="screen" ></node>-->
+	<node name="cmd_interpreter" pkg="ros_bprime_drivers" type="cmd_interpreter.py" output="screen" ></node>
 
 	<group ns="teleop">
 		<include file="$(find ros_teleop)/launch/teleop.launch"/>
