@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 import rospy
-from ros_bprime_drivers.msgs import Pwm_cmd
+from ros_bprime_drivers.msg import Pwm_cmd
 
 from Adafruit_PWM_Servo_Driver.Adafruit_PWM_Servo_Driver import PWM
 
