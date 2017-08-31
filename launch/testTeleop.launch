@@ -15,14 +15,14 @@
         <!--<remap from="image" to="/usb_cam/image_raw"/>-->
         <!--<param name="autosize" value="true" />-->
     <!--</node>-->
-	<node name="cam_monitor" pkg="ros_bprime_drivers" type="video_monitor.py"/>
 
+	<!--<node name="cam_monitor" pkg="ros_bprime_drivers" type="video_monitor.py"/>-->
 
-	<node name="pwm_driver" pkg="ros_bprime_drivers" type="adafruit_pwm_driver.py"/>
+	<node name="pwm_driver" pkg="ros_bprime_drivers" type="adafruit_pwm_driver.py">
+    	<rosparam file="$(find ros_bprime_drivers)/launch/pwmconfig.yaml" command="load"/>
+    </node>
 
-	<node name="cmd_interpreter" pkg="ros_bprime_drivers" type="cmd_interpreter.py" output="screen" >
-		<rosparam file="$(find ros_bprime_drivers)/launch/pwmconfig.yaml" command="load"/>
-	</node>
+	<node name="cmd_interpreter" pkg="ros_bprime_drivers" type="cmd_interpreter.py" output="screen" ></node>
 
 	<group ns="teleop">
 		<include file="$(find ros_teleop)/launch/teleop.launch"/>
