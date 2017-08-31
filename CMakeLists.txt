@@ -10,6 +10,7 @@ project(ros_bprime_drivers)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
