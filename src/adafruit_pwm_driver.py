@@ -1,60 +1,43 @@
 #!/usr/bin/env python
 
 import rospy
-from std_msgs.msg import Int16
-from std_msgs.msg import Float32
+from ros_bprime_drivers.msgs import Pwm_cmd
 
-class MotorBoard:
+from Adafruit_PWM_Servo_Driver.Adafruit_PWM_Servo_Driver import PWM
+import time
 
-    def __init__(self):
-        self.mh = Adafruit_MotorHAT(addr=0x60)
-        atexit.register(turnOffMotors)
+class PWMBoard:
 
-    def servo_cmd(self, pin, angle):
+    def __init__(self, pin_dic):
+        self.pwm = PWM(0x40)
+        self.pwm.setPWMFreq(50)
+        self.pins = pin_dic
+
+    def cb_pwm(self, msg):
         # TESTS, pour une frequence de 50Hz, et 0 en ON, on a des valeurs correcte pour les servo de 101 a 560
         # 16*6 = 96, 16*35=560
         # Milieu a 330 (230 de chaque cote)
 
-        print 'angle :', angle
-        print 'pin :', pin
+        print 'pin :', msg.pin
+        print 'cmd :', msg.command
 
-        cmd = angle/180.0*230+330
+        type = self.pins[msg.pin]
+        if type=='servo':
+            cmd = msg.cmd / 180.0 * 230 + 330
+        elif type=='motor':
+            cmd = msg.cmd*5 + 1500
+        else:
+            cmd = 1500
+        self.setPWM(msg.pin, cmd)
 
-        self.mh.setPWMFreq(50)
-        self.mh.setPWM(int(pin, 0, int(cmd)))
-
-
-    # recommended for auto-disabling motors on shutdown!
-    def turnOffMotors(self):
-        self.mh.getMotor(1).run(Adafruit_MotorHAT.RELEASE)
-        self.mh.getMotor(2).run(Adafruit_MotorHAT.RELEASE)
-        self.mh.getMotor(3).run(Adafruit_MotorHAT.RELEASE)
-        self.mh.getMotor(4).run(Adafruit_MotorHAT.RELEASE)
-
-    def cb_servo1(self, msg):
-        self.servo_cmd(14, msg.data)
-
-    def cb_servo2(self, msg):
-        self.servo_cmd(15, msg.data)
-
-    def cb_motor_gauche(self, msg):
-        self.mh.getMotor(1).setSpeed(msg.data)
-        self.mh.getMotor(3).setSpeed(msg.data)
-
-    def cb_motor_droit(self, msg):
-        self.mh.getMotor(2).setSpeed(msg.data)
-        self.mh.getMotor(4).setSpeed(msg.data)
-
+    def setPWM(self, pin, cmd):
+        cmd = (cmd-1000)/1000*409
+        self.pwm.setPWM(pin, 0, cmd) #max 4095, 1 cycle = 4095. Donc 409 max (20ms -> 2ms)
 
 if __name__ == '__main__':
     rospy.init_node("motorBoard_driver")
 
-    motor = MotorBoard()
-
-    rospy.Subscriber('cmd_position_servo1', Float32, motor.cb_servo1)
-    rospy.Subscriber('cmd_position_servo2', Float32, motor.cb_servo2)
-
-    rospy.Subscriber('gauche/cmd_thr', Int16, motor.cb_motor_gauche)
-    rospy.Subscriber('droite/cmd_thr', Int16, motor.cb_motor_droit)
+    pwmboard = PWMBoard(rospy.get_param('~pin_dic'))
+    rospy.Subscriber('pwm_cmd', pwm_cmd, pwmboard.cb_pwm)
 
     rospy.spin()
