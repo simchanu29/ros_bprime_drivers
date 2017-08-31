@@ -18,7 +18,7 @@
 	<node name="cam_monitor" pkg="ros_bprime_drivers" type="video_monitor.py"/>
 
 
-	<node name="motorBoard_driver" pkg="ros_bprime_drivers" type="adafruit_hat_driver.py"/>
+	<node name="pwm_driver" pkg="ros_bprime_drivers" type="adafruit_pwm_driver.py"/>
 
 	<node name="cmd_interpreter" pkg="ros_bprime_drivers" type="cmd_interpreter.py" output="screen" ></node>
 
