@@ -4,7 +4,6 @@ import rospy
 from ros_bprime_drivers.msgs import Pwm_cmd
 
 from Adafruit_PWM_Servo_Driver.Adafruit_PWM_Servo_Driver import PWM
-import time
 
 class PWMBoard:
 
@@ -23,7 +22,7 @@ class PWMBoard:
 
         type = self.pins[msg.pin]
         if type=='servo':
-            cmd = msg.cmd / 180.0 * 230 + 330
+            cmd = msg.cmd / 180.0 * 500 + 1500
         elif type=='motor':
             cmd = msg.cmd*5 + 1500
         else:
