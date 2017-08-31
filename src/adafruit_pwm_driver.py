@@ -38,6 +38,6 @@ if __name__ == '__main__':
     rospy.init_node("motorBoard_driver")
 
     pwmboard = PWMBoard(rospy.get_param('~pin_dic'))
-    rospy.Subscriber('pwm_cmd', pwm_cmd, pwmboard.cb_pwm)
+    rospy.Subscriber('pwm_cmd', Pwm_cmd, pwmboard.cb_pwm)
 
     rospy.spin()
