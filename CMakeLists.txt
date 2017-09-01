@@ -50,8 +50,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## Generate messages in the 'msg' folder
 add_message_files(
   FILES
-  Pwm_cmd.msg
-#   Message2.msg
+  PwmCmd.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -106,7 +105,7 @@ add_message_files(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES BPrime_hardware_drivers
-#  CATKIN_DEPENDS geometry_msgs roscpp rospy sensors_msgs
+    CATKIN_DEPENDS message_runtime
 #  DEPENDS system_lib
 )
 
