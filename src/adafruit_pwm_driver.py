@@ -2,7 +2,7 @@
 
 import rospy
 from ros_bprime_drivers.msg import PwmCmd
-from Adafruit_PWM_Servo_Driver.Adafruit_PWM_Servo_Driver import PWM
+from adafruit_pwm_drivers.Adafruit_PWM_Servo_Driver.Adafruit_PWM_Servo_Driver import PWM
 
 class PWMBoard:
 
@@ -36,6 +36,6 @@ if __name__ == '__main__':
     rospy.init_node("motorBoard_driver")
 
     pwmboard = PWMBoard(rospy.get_param('~pin_dic'))
-    rospy.Subscriber('pwm_cmd', Pwm_cmd, pwmboard.cb_pwm)
+    rospy.Subscriber('pwm_cmd', PwmCmd, pwmboard.cb_pwm)
 
     rospy.spin()
