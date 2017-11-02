@@ -9,5 +9,5 @@ __DONE__ :
  - Drivers de la carte pwm adafruit
 
 __TODO__ : 
- - Ranger les différents drivers dans des packages séparés et remplacer ce package par un meta-package
+ - Ranger les différents drivers dans des packages séparés et remplacer ce package par un stack
  - Tester le driver pwm sur la raspberry
