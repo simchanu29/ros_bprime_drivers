@@ -20,56 +20,9 @@
 
     <node name="cmd_interpreter" pkg="ros_bprime_drivers" type="cmd_interpreter.py"/>
 
-    <!--Driver pwm-->
-    <rosparam file="$(find ros_bprime_drivers)/config/pwmconfig.yaml" command="load"/>
-
-    <group ns="gauche">
-        <node name="pwm_interpreter" pkg="ros_bprime_drivers" type="adafruit_cmd_interpreter.py">
-            <param name="sub_name" value="cmd_thr"/>
-            <param name="device_name" value="motor_left"/>
-        </node>
-    </group>
-    <group ns="droite">
-        <node name="pwm_interpreter" pkg="ros_bprime_drivers" type="adafruit_cmd_interpreter.py">
-            <param name="sub_name" value="cmd_thr"/>
-            <param name="device_name" value="motor_right"/>
-        </node>
-    </group>
-    <group ns="servo1">
-        <node name="data_extractor" pkg="ros_bprime_drivers" type="data_extractor.py">
-            <param name="in_data_format_mod" value="std_msgs.msg"/>
-            <param name="in_data_format_cla" value="Float32"/>
-            <param name="out_data_format_mod" value="std_msgs.msg"/>
-            <param name="out_data_format_cla" value="Int16"/>
-            <param name="in_topic" value="/cmd_position_servo1" />
-            <param name="out_topic" value="position"/>
-            <param name="operation" value="int"/>
-            <param name="wanted_data" value=""/>
-        </node>
-        <node name="pwm_interpreter" pkg="ros_bprime_drivers" type="adafruit_cmd_interpreter.py">
-            <param name="sub_name" value="position"/>
-            <param name="device_name" value="servo_cam_azimuth"/>
-        </node>
-    </group>
-    <group ns="servo2">
-        <node name="data_extractor" pkg="ros_bprime_drivers" type="data_extractor.py">
-            <param name="in_data_format_mod" value="std_msgs.msg"/>
-            <param name="in_data_format_cla" value="Float32"/>
-            <param name="out_data_format_mod" value="std_msgs.msg"/>
-            <param name="out_data_format_cla" value="Int16"/>
-            <param name="in_topic" value="/cmd_position_servo2" />
-            <param name="out_topic" value="position"/>
-            <param name="operation" value="int"/>
-            <param name="wanted_data" value=""/>
-        </node>
-        <node name="pwm_interpreter" pkg="ros_bprime_drivers" type="adafruit_cmd_interpreter.py">
-            <param name="sub_name" value="position"/>
-            <param name="device_name" value="servo_cam_declinaison"/>
-        </node>
-    </group>
-
-    <node name="pwm_driver" pkg="ros_bprime_drivers" type="adafruit_pwm_driver.py"/>
-
+    <!--Drivers pwm-->
+    <include file="$(find ros_bprime_drivers)/launch/pwm_pre_drivers.launch"/>
+    <include file="$(find ros_bprime_drivers)/launch/drivers.launch"/>
 
     <!--Teleoperation-->
 	<group ns="teleop">

@@ -7,6 +7,11 @@ from geometry_msgs.msg import Twist, Vector3
 from std_msgs.msg import Float64, Bool
 
 class Interpreter:
+    """
+    This node translates Twist messages via joystick to vector3 by publishing the linear component of the Twist message
+    and a heading commande.
+    There is a security : a timeout. If no command has been sent then the command is [0,0,0].
+    """
     def __init__(self):
         self.timeout = 1.5
         self.time = 0.0

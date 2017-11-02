@@ -1,0 +1,22 @@
+
+<launch>
+    <node pkg="ros_bprime_drivers" type="simu_vehicule.py" name="simulation">
+
+    </node>
+    <node pkg="ros_bprime_drivers" type="simu_imu.py" name="simulation">
+        <rosparam>
+            orientation_covariance: [1, 1, 1, 1, 1, 1, 1, 1, 1]
+            angular_velocity_covariance: [1, 1, 1, 1, 1, 1, 1, 1, 1]
+            linear_acceleration_covariance: [1, 1, 1, 1, 1, 1, 1, 1, 1]
+        </rosparam>
+    </node>
+    <node pkg="ros_bprime_drivers" type="simu_gps.py" name="simulation">
+        <rosparam>
+            position_covariance: [1, 1, 1, 1, 1, 1, 1, 1, 1]
+        </rosparam>
+    </node>
+    <node pkg="ros_bprime_drivers" type="simu_pwm_board.py" name="simulation">
+
+    </node>
+
+</launch>
